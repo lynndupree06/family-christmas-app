@@ -1,2 +1,59 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div ng-app="MyWishList">
+  <div ng-controller="HomeController as home">
+    <h1>My Wish List</h1>
+
+    <div ng-show="home.isView('list')">
+      <a href ng-click="home.setView('itemDetails')">Add Item to List</a>
+
+      <div ng-repeat="item in home.list">
+
+        <section>
+          <div>{{item.title}}</div>
+          <div>{{item.importance}}</div>
+          <div>{{item.status}}</div>
+          <div>{{item.description}}</div>
+
+          <h4>Related Link</h4>
+          <a href="{{item.link}}" target="_blank">{{item.link}}</a>
+
+          <button>Delete</button>
+        </section>
+
+      </div>
+    </div>
+
+    <div ng-show="home.isView('itemDetails')">
+      <a href ng-click="home.setView('list')">View List</a>
+
+      <form role="form" name="addItemForm" ng-submit="home.addItem(item)" novalidate>
+        <div class="form-group">
+          <label for="title">Short Description <span class="required">*</span></label>
+          <input ng-model="item.title" type="text" class="form-control" id="title" placeholder="Enter description of item" required="required">
+        </div>
+        <div class="form-group">
+          <label for="description">Long Description</label>
+          <textarea ng-model="item.description" class="form-control" id="description" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="link">Optional URL</label>
+          <input ng-model="item.link" type="url" class="form-control" id="link" placeholder="Enter link to item">
+        </div>
+        <div class="form-group">
+          <label for="importance">Importance <span class="required">*</span></label>
+          <select ng-model="item.importance" class="form-control" required="required">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <span id="helpBlock" class="help-block">
+            Prioritize which items are most important to you by ranking them from 1 (least important) to 5 (most important).
+          </span>
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </form>
+
+    </div>
+  </div>
+</div>

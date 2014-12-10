@@ -1,0 +1,33 @@
+<div ng-controller="OtherListController as otherList">
+  <div ng-show="otherList.isView('list')">
+    <h1>Other Lists</h1>
+    <ul>
+      <li ng-repeat="user in otherList.users">
+        <a href ng-click="otherList.viewList(user)">{{user.first_name}} {{user.last_name}}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div ng-show="otherList.isView('userList')">
+    <a href ng-click="otherList.setView('list')">Back</a><br>
+
+    <h1>{{user.first_name}} {{user.last_name}}'s List</h1>
+
+    <div ng-repeat="item in list">
+
+      <section>
+        <div>{{item.title}}</div>
+        <div>{{item.importance}}</div>
+        <div>{{item.status}}</div>
+        <div>{{item.description}}</div>
+
+        <h4>Related Link</h4>
+        <a href="{{item.link}}" target="_blank">{{item.link}}</a>
+
+        <button>Purchase</button>
+      </section>
+
+    </div>
+
+  </div>
+</div>

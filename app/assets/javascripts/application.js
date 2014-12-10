@@ -16,4 +16,5 @@
 //= require bootstrap-sprockets
 //= require angular.min
 //= require angular-resource.min
+//= require angular-route.min
 //= require_tree .

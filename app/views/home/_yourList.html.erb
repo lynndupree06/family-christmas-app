@@ -1,0 +1,20 @@
+<div ng-show="home.isView('list')">
+  <h1>My Wish List</h1>
+  <a href ng-click="home.setView('itemDetails')">Add Item to List</a>
+
+  <div ng-repeat="item in home.list">
+
+    <section>
+      <div>{{item.title}}</div>
+      <div>{{item.importance}}</div>
+      <div>{{item.status}}</div>
+      <div>{{item.description}}</div>
+
+      <h4>Related Link</h4>
+      <a href="{{item.link}}" target="_blank">{{item.link}}</a>
+
+      <button>Delete</button>
+    </section>
+
+  </div>
+</div>

@@ -47,28 +47,4 @@
     }
   }]);
 
-  var items = [
-    {
-      title: 'First Item',
-      description: 'Here is my description',
-      link: 'http://www.google.com',
-      importance: '3',
-      status: 'Available'
-    },
-    {
-      title: 'Second Item',
-      description: 'Here is my description',
-      link: 'http://www.google.com',
-      importance: '3',
-      status: 'Available'
-    },
-    {
-      title: 'Third Item',
-      description: 'Here is my description',
-      link: 'http://www.google.com',
-      importance: '3',
-      status: 'Available'
-    }
-  ]
-
 })();

@@ -17,7 +17,7 @@
       <div ng-repeat="item in list">
 
         <section class="item panel"
-                 ng-class="{'panel-danger unavailable':otherList.isUnavailable(item.status),
+                 ng-class="{'panel-danger unavailable':otherList.isUnavailable(item.status) && !otherList.isPending(item.status),
                     'panel-warning':otherList.isPending(item.status),
                     'panel-success':otherList.isAvailable(item.status)}">
           <div class="title panel-heading">
@@ -27,19 +27,29 @@
                  ng-class="{'glyphicon-remove':otherList.isUnavailable(item.status) && !otherList.isPending(item.status),
                     'glyphicon-exclamation-sign':otherList.isPending(item.status),
                     'glyphicon-ok':otherList.isAvailable(item.status)}"></i>
-              {{item.status}}
             </div>
           </div>
 
           <div class="panel-body">
             <div class="created-at">Created on {{item.created_at | date:"MM/dd/yyyy 'at' h:mma"}}</div>
-            <div class="importance">{{item.importance}}</div>
+            <div class="importance">
+              <span ng-repeat="i in [1, 2, 3, 4, 5]">
+                <i ng-show="item.importance >= i" class="glyphicon glyphicon-star"></i>
+                <i ng-show="item.importance < i" class="glyphicon glyphicon-star-empty"></i>
+              </span>
+            </div>
             <div class="description">{{item.description}}</div>
 
-            <h4>Related Link</h4>
-            <a href="{{item.link}}" target="_blank">{{item.link}}</a>
+            <div ng-show="item.link">
+              <h4>Related Link</h4>
+              <a href="{{item.link}}" target="_blank">{{item.link}}</a>
+            </div>
 
-            <button class="btn btn-primary" ng-hide="otherList.isUnavailable(item.status)">Purchase</button>
+            <button class="btn btn-primary" ng-click="otherList.markPending(item)" ng-hide="otherList.isUnavailable(item.status)">Purchase</button>
+            <div ng-hide="otherList.isAvailable(item.status)" class="text-warning pending">Has Been Marked For
+              Purchase
+            </div>
+
             <div style="clear: both"></div>
           </div>
         </section>

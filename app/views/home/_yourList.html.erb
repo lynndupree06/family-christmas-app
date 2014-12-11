@@ -15,8 +15,10 @@
           <div class="importance">{{item.importance}}</div>
           <div class="description">{{item.description}}</div>
 
-          <h4>Related Link</h4>
-          <a href="{{item.link}}" target="_blank">{{item.link}}</a>
+          <div ng-show="item.link">
+            <h4>Related Link</h4>
+            <a href="{{item.link}}" target="_blank">{{item.link}}</a>
+          </div>
 
           <button class="btn btn-danger" ng-click="deleteItem(item.id)"><i class="glyphicon glyphicon-trash"></i> Remove
           </button>

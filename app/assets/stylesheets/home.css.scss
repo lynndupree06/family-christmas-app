@@ -1,5 +1,4 @@
 .item {
-  margin: 10px;
   border-radius: 10px;
   font-size: 16px;
 
@@ -14,55 +13,64 @@
     );
   }
 
-  .title {
-    font-weight: bold;
-    font-variant: small-caps;
-    font-size: 20px;
+  .panel-heading {
+    &.title {
+      font-weight: bold;
+      font-variant: small-caps;
+      font-size: 20px;
 
-    .status {
-      float: right;
+      .status {
+        float: right;
 
-      .glyphicon-remove {
-        color: red;
+        .glyphicon-remove {
+          color: red;
+        }
       }
     }
   }
 
-  .created-at {
-    font-style: italic;
-    font-size: 12px;
-    margin-bottom: 10px;
-  }
-
-  .importance {
-
-  }
-
-  .description {
-
-  }
-
-  h4 {
-    font-size: 16px;
-    float: left;
-    width: 25%;
-    margin: 15px 5px 0 0;
-
-    &::after {
-      content: ':';
+  .panel-body {
+    .created-at {
+      font-style: italic;
+      font-size: 12px;
+      margin-bottom: 10px;
     }
-  }
 
-  a {
-    padding: 0;
-    margin: 15px 0 0 5px;
-    float: left;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+    .importance {
 
-  button {
-    float: right;
+    }
+
+    .description {
+
+    }
+
+    h4 {
+      font-size: 16px;
+      float: left;
+      width: 25%;
+      margin: 15px 5px 0 0;
+
+      &::after {
+        content: ':';
+      }
+    }
+
+    a {
+      padding: 0;
+      margin: 15px 0 0 5px;
+      float: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    button {
+      float: right;
+    }
+
+    .pending {
+      float: right;
+      font-size: 12px;
+    }
   }
 }
 

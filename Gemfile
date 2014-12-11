@@ -20,6 +20,7 @@ gem 'angular-ui-bootstrap-rails'
 group :development, :test do
   gem 'sqlite3'
   gem 'spring'
+  gem 'mailcatcher'
 end
 
 group :production do

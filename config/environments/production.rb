@@ -76,3 +76,13 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
+
+ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => 'app32407987@heroku.com',
+    :password       => 'qwcuwure',
+    :domain         => 'heroku.com',
+    :enable_starttls_auto => true
+}

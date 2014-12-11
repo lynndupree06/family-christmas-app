@@ -19,6 +19,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def others
+    @users = User.all.where("id != #{params[:id]}")
+    respond_with(@users) do |format|
+      format.to_json { @users.to_json }
+      format.html
+    end
+  end
+
   def show
     respond_with(@user)
   end

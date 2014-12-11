@@ -1,20 +1,33 @@
 <div ng-show="home.isView('list')">
   <h1>My Wish List</h1>
-  <a href ng-click="home.setView('itemDetails')">Add Item to List</a>
+  <button class="btn btn-primary" ng-click="home.setView('itemDetails')">
+    <i class="glyphicon glyphicon-plus-sign"></i> Add Item to List
+  </button>
 
-  <div ng-repeat="item in home.list">
+  <div class="jumbotron content" ng-hide="list.length === 0">
+    <div ng-repeat="item in list">
 
-    <section>
-      <div>{{item.title}}</div>
-      <div>{{item.importance}}</div>
-      <div>{{item.status}}</div>
-      <div>{{item.description}}</div>
+      <section class="item panel panel-default">
+        <div class="panel-heading title">{{item.title}}</div>
 
-      <h4>Related Link</h4>
-      <a href="{{item.link}}" target="_blank">{{item.link}}</a>
+        <div class="panel-body">
+          <div class="created-at">Created on {{item.created_at | date:"MM/dd/yyyy 'at' h:mma"}}</div>
+          <div class="importance">{{item.importance}}</div>
+          <div class="description">{{item.description}}</div>
 
-      <button>Delete</button>
-    </section>
+          <h4>Related Link</h4>
+          <a href="{{item.link}}" target="_blank">{{item.link}}</a>
 
+          <button class="btn btn-danger" ng-click="deleteItem(item.id)"><i class="glyphicon glyphicon-trash"></i> Remove
+          </button>
+          <div style="clear: both"></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="empty-list jumbotron" ng-show="list.length === 0">
+    <h1>Your list is empty</h1>
   </div>
 </div>

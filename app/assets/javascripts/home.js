@@ -34,13 +34,25 @@
     })
   }]);
 
-  app.controller('HomeController', ['$scope', '$resource', 'Items', function ($scope, $resource, Items) {
-    this.list = Items.query();
+  app.factory('OtherUsers', ['$resource', function ($resource) {
+    return $resource('/home/users/others/:id.json', {}, {
+      query: { method: 'GET', isArray: true }
+    })
+  }]);
+
+  app.controller('HomeController', ['$scope', '$resource', 'Items', 'Item', 'ItemsById',
+    function ($scope, $resource, Items, Item, ItemsById) {
+
     this.view = 'list';
+
+    this.loadList = function(user) {
+      $scope.list = ItemsById.query(user);
+    };
 
     this.addItem = function (item, userId) {
       var self = this;
       item.user_id = userId;
+      item.status = 'Available';
 
       if ($scope.addItemForm.$valid) {
         Items.create({item: item}, function () {
@@ -58,12 +70,23 @@
 
     this.setView = function (newView) {
       this.view = newView;
-    }
+    };
+
+    $scope.deleteItem = function (itemId) {
+      if (confirm("Are you sure you want to delete this item?")){
+        Item.delete({ id: itemId }, function(){
+          $scope.list = Items.query();
+        });
+      }
+    };
   }]);
 
-  app.controller('OtherListController', ['$scope', 'Users', 'Items', 'ItemsById', function ($scope, Users, Items, ItemsById) {
-    this.users = Users.query();
+  app.controller('OtherListController', ['$scope', 'OtherUsers', 'Items', 'ItemsById', function ($scope, OtherUsers, Items, ItemsById) {
     this.view = 'list';
+
+    this.loadUsers = function (userId) {
+      this.users = OtherUsers.query({id: userId});
+    };
 
     this.viewList = function (user) {
       $scope.user = user;
@@ -78,12 +101,24 @@
     this.setView = function (newView) {
       this.view = newView;
     };
+
+    this.isUnavailable = function(status) {
+      return status !== 'Available' && status !== null;
+    };
+
+    this.isAvailable = function (status) {
+      return status === 'Available' || status === null;
+    };
+
+    this.isPending = function(status) {
+      return status === 'Partial';
+    };
   }]);
 
-//  app.directive("wishList", function () {
-//      return {
-//        restrict: 'E',
-//        templateUrl: "<%= asset_path('templates/wish_list.html') %>"};
-//    }
-//  );
+  app.directive("wishList", function () {
+      return {
+        restrict: 'E',
+        templateUrl: "/wish_list"};
+    }
+  );
 })();

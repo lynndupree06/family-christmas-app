@@ -1,3 +1,93 @@
-// Place all the styles related to the home controller here.
-// They will automatically be included in application.css.scss.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.item {
+  margin: 10px;
+  border-radius: 10px;
+  font-size: 16px;
+
+  &.unavailable {
+    text-decoration: line-through;
+    background: repeating-linear-gradient(
+                    45deg,
+                    red,
+                    red 10px,
+                    darkred 10px,
+                    darkred 20px
+    );
+  }
+
+  .title {
+    font-weight: bold;
+    font-variant: small-caps;
+    font-size: 20px;
+
+    .status {
+      float: right;
+
+      .glyphicon-remove {
+        color: red;
+      }
+    }
+  }
+
+  .created-at {
+    font-style: italic;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .importance {
+
+  }
+
+  .description {
+
+  }
+
+  h4 {
+    font-size: 16px;
+    float: left;
+    width: 25%;
+    margin: 15px 5px 0 0;
+
+    &::after {
+      content: ':';
+    }
+  }
+
+  a {
+    padding: 0;
+    margin: 15px 0 0 5px;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  button {
+    float: right;
+  }
+}
+
+.empty-list {
+  margin: 20px auto;
+  text-align: center;
+}
+
+.jumbotron {
+  &.content {
+    margin: 30px auto;
+  }
+}
+
+.key {
+  list-style: none;
+
+  .available {
+    color: green;
+  }
+
+  .unavailable {
+    color: red
+  }
+  .pending {
+    color: #ffff00
+  }
+}

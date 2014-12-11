@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   get '/others' => 'home#others'
   get 'home/users/items/:id' => 'users#items'
+  get 'home/users/others/:id' => 'users#others'
+  get '/wish_list' => 'home#wish_list'
 
   devise_for :users, :controllers => { registrations: 'registrations' }
   root to: 'home#index'

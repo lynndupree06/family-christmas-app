@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0b1185a1-b04d-4d73-9e47-a4af6e8fce60" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/application.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FamilyChristmasApp.iws" />
@@ -669,7 +668,11 @@
       <created>1418268151837</created>
       <updated>1418268151837</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="forced page reload">
+      <created>1418268484186</created>
+      <updated>1418268484186</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -721,7 +724,8 @@
     <MESSAGE value="Updated styling. Removed current user's list when viewing other list. List only items in your list on the home page.’" />
     <MESSAGE value="Added marked as pending when user first selects an item to purchase. Added status to item. Showed importance by stars." />
     <MESSAGE value="Made page to list items you have marked to purchase. Showed button if you were the one to mark to purchase." />
-    <option name="LAST_COMMIT_MESSAGE" value="Made page to list items you have marked to purchase. Showed button if you were the one to mark to purchase." />
+    <MESSAGE value="forced page reload" />
+    <option name="LAST_COMMIT_MESSAGE" value="forced page reload" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

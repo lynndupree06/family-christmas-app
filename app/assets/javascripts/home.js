@@ -100,7 +100,7 @@
       };
 
       this.viewList = function (user) {
-        $scope.currentUser = user;
+        $scope.user = user;
         $scope.list = ItemsById.query(user);
         this.view = 'userList';
       };
@@ -129,7 +129,7 @@
         item.status = 'Unavailable';
 
         Item.update(item, function () {
-          $scope.list = ItemsById.query($scope.currentUser);
+          $scope.list = ItemsById.query($scope.user);
         });
       };
 
@@ -138,7 +138,7 @@
         item.user_to_purchase = userToPurchaseId;
 
         Item.update(item, function () {
-          $scope.list = ItemsById.query($scope.currentUser);
+          $scope.list = ItemsById.query($scope.user);
         });
       };
     }]);

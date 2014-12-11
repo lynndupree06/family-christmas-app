@@ -40,12 +40,19 @@
     })
   }]);
 
+  app.factory('Purchases', ['$resource', function ($resource) {
+    return $resource('/home/users/purchases/:id.json', {}, {
+      query: { method: 'GET', isArray: true }
+    })
+  }]);
+
   app.controller('HomeController', ['$scope', '$resource', 'Items', 'Item', 'ItemsById',
     function ($scope, $resource, Items, Item, ItemsById) {
 
       this.view = 'list';
 
       this.loadList = function (user) {
+        $scope.currentUser = user;
         $scope.list = ItemsById.query(user);
       };
 
@@ -56,7 +63,7 @@
 
         if ($scope.addItemForm.$valid) {
           Items.create({item: item}, function () {
-            self.list = Items.query();
+            self.loadList($scope.currentUser);;
             self.view = 'list';
           }, function (error) {
             console.log(error)
@@ -73,9 +80,11 @@
       };
 
       $scope.deleteItem = function (itemId) {
+        var self = this;
+
         if (confirm("Are you sure you want to delete this item?")) {
           Item.delete({ id: itemId }, function () {
-            $scope.list = Items.query();
+            self.loadList($scope.currentUser);
           });
         }
       };
@@ -91,7 +100,7 @@
       };
 
       this.viewList = function (user) {
-        $scope.user = user;
+        $scope.currentUser = user;
         $scope.list = ItemsById.query(user);
         this.view = 'userList';
       };
@@ -104,38 +113,62 @@
         this.view = newView;
       };
 
-      this.isUnavailable = function (status) {
+      $scope.isUnavailable = function (status) {
         return status !== 'Available';
       };
 
-      this.isAvailable = function (status) {
+      $scope.isAvailable = function (status) {
         return status === 'Available' || status === null;
       };
 
-      this.isPending = function (status) {
+      $scope.isPending = function (status) {
         return status === 'Pending';
       };
 
-      this.markPending = function (item) {
-        item.status = 'Pending';
+      $scope.markPurchased = function (item) {
+        item.status = 'Unavailable';
 
         Item.update(item, function () {
-          $scope.list = ItemsById.query($scope.user);
+          $scope.list = ItemsById.query($scope.currentUser);
         });
       };
 
-      this.getRating = function (num) {
-        var arr = [];
-        for(var i = 1; i <= 5; i++) {
-          if(i <= num) {
-            arr.push(1);
-          } else {
-            arr.push(0);
-          }
-        }
-        return arr;
-      }
+      this.markPending = function (item, userToPurchaseId) {
+        item.status = 'Pending';
+        item.user_to_purchase = userToPurchaseId;
+
+        Item.update(item, function () {
+          $scope.list = ItemsById.query($scope.currentUser);
+        });
+      };
     }]);
+
+  app.controller('PurchasesController', ['$scope', 'Purchases', 'Item', function ($scope, Purchases, Item) {
+    this.loadPurchases = function (userId) {
+      $scope.currentUserId = userId;
+      $scope.list = Purchases.query({id: userId});
+    };
+
+    $scope.isUnavailable = function (status) {
+      return status !== 'Available';
+    };
+
+    $scope.isAvailable = function (status) {
+      return status === 'Available' || status === null;
+    };
+
+    $scope.isPending = function (status) {
+      return status === 'Pending';
+    };
+
+    $scope.markPurchased = function (item) {
+      item.status = 'Unavailable';
+
+      Item.update(item, function () {
+        $scope.list = Purchases.query({id: $scope.currentUserId});
+      });
+    };
+  }]);
 
   app.directive("wishList", function () {
       return {

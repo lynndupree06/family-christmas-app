@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20141211004445) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status"
+    t.integer  "user_to_purchase"
   end
 
   create_table "users", force: true do |t|

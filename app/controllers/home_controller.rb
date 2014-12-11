@@ -6,6 +6,9 @@ class HomeController < ApplicationController
   def others
   end
 
+  def purchases
+  end
+
   def wish_list
   end
 end

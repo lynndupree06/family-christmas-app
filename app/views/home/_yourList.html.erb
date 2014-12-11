@@ -12,7 +12,12 @@
 
         <div class="panel-body">
           <div class="created-at">Created on {{item.created_at | date:"MM/dd/yyyy 'at' h:mma"}}</div>
-          <div class="importance">{{item.importance}}</div>
+          <div class="importance">
+              <span ng-repeat="i in [1, 2, 3, 4, 5]">
+                <i ng-show="item.importance >= i" class="glyphicon glyphicon-star"></i>
+                <i ng-show="item.importance < i" class="glyphicon glyphicon-star-empty"></i>
+              </span>
+          </div>
           <div class="description">{{item.description}}</div>
 
           <div ng-show="item.link">

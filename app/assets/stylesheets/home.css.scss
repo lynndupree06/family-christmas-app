@@ -4,13 +4,13 @@
 
   &.unavailable {
     text-decoration: line-through;
-    background: repeating-linear-gradient(
-                    45deg,
-                    red,
-                    red 10px,
-                    darkred 10px,
-                    darkred 20px
-    );
+//    background: repeating-linear-gradient(
+//                    45deg,
+//                    red,
+//                    red 10px,
+//                    darkred 10px,
+//                    darkred 20px
+//    );
   }
 
   .panel-heading {
@@ -67,7 +67,7 @@
       float: right;
     }
 
-    .pending {
+    .pending, .purchased {
       float: right;
       font-size: 12px;
     }

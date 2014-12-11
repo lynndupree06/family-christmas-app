@@ -45,9 +45,15 @@
               <a href="{{item.link}}" target="_blank">{{item.link}}</a>
             </div>
 
-            <button class="btn btn-primary" ng-click="otherList.markPending(item)" ng-hide="otherList.isUnavailable(item.status)">Purchase</button>
-            <div ng-hide="otherList.isAvailable(item.status)" class="text-warning pending">Has Been Marked For
-              Purchase
+            <button class="btn btn-primary" ng-click="otherList.markPending(item, <%= current_user.id %>)"
+                    ng-hide="otherList.isUnavailable(item.status)">Mark to Purchase</button>
+
+            <div ng-hide="otherList.isAvailable(item.status)"
+                 ng-switch="item.user_to_purchase === <%= current_user.id %>" class="text-warning pending">
+              <span ng-switch-when="false">Has Been Marked For Purchase</span>
+              <button ng-switch-when="true" class="btn btn-warning" ng-click="otherList.markPurchased(item)">
+                Purchase
+              </button>
             </div>
 
             <div style="clear: both"></div>
@@ -56,7 +62,7 @@
 
       </div>
       <div class="empty-list jumbotron" ng-show="list.length === 0">
-        <h1>There is nothing in {{user.first_name}} {{user.last_name}}'s list</h1>
+        <h2>There is nothing in<br>{{user.first_name}} {{user.last_name}}'s list</h2>
       </div>
     </div>
 

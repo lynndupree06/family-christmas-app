@@ -35,12 +35,9 @@
             <a href="{{item.link}}" target="_blank">{{item.link}}</a>
           </div>
 
-          <button ng-show="isAvailable(item.status)" class="btn btn-warning" ng-click="markPurchased(item)">
-            Purchase
-          </button>
-
-          <span ng-hide="isAvailable(item.status)" class="text-warning purchased">
-            You Have Purchased This Item
+          <span ng-switch="isPending(item.status)">
+            <button ng-switch-when="true" class="btn btn-warning" ng-click="markPurchased(item)">Purchase</button>
+            <span ng-switch-when="false" class="text-warning purchased">You Have Purchased This Item</span>
           </span>
 
           <div style="clear: both"></div>

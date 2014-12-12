@@ -1,0 +1,61 @@
+<div class='col-sm-9'>
+
+  <span>Key:</span>
+      <span class="text-success"><i class="glyphicon glyphicon-ok"></i> Available</span>
+      <span class="text-warning"><i class="glyphicon glyphicon-exclamation-sign"></i> Pending</span>
+      <span class="text-danger"><i class="glyphicon glyphicon-remove"></i> Not Available</span>
+
+  <div class="jumbotron">
+    <div ng-repeat="item in list">
+
+      <section class="item panel"
+               ng-class="{'panel-danger unavailable':otherList.isUnavailable(item.status) && !otherList.isPending(item.status),
+                  'panel-warning':otherList.isPending(item.status),
+                  'panel-success':otherList.isAvailable(item.status)}">
+        <div class="title panel-heading">
+          {{item.title}}
+          <div class="status">
+            <i class="glyphicon"
+               ng-class="{'glyphicon-remove':otherList.isUnavailable(item.status) && !otherList.isPending(item.status),
+                  'glyphicon-exclamation-sign':otherList.isPending(item.status),
+                  'glyphicon-ok':otherList.isAvailable(item.status)}"></i>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <div class="created-at">Created on {{item.created_at | date:"MM/dd/yyyy 'at' h:mma"}}</div>
+          <div class="importance">
+            <span ng-repeat="i in [1, 2, 3, 4, 5]">
+              <i ng-show="item.importance >= i" class="glyphicon glyphicon-star"></i>
+              <i ng-show="item.importance < i" class="glyphicon glyphicon-star-empty"></i>
+            </span>
+          </div>
+          <div class="description">{{item.description}}</div>
+
+          <div ng-show="item.link">
+            <h4>Related Link</h4>
+            <a href="{{item.link}}" target="_blank">{{item.link}}</a>
+          </div>
+
+          <button class="btn btn-primary" ng-click="otherList.markPending(item, <%= current_user.id %>)"
+                  ng-show="otherList.isAvailable(item.status)">Mark to Purchase</button>
+
+          <div ng-hide="otherList.isAvailable(item.status)"
+               ng-switch="item.user_to_purchase === <%= current_user.id %>" class="text-warning pending">
+            <span ng-switch-when="false">Has Been Marked For Purchase</span>
+            <button ng-switch-when="true" class="btn btn-warning" ng-click="otherList.markPurchased(item, <%= current_user.id %>)">
+              Purchase
+            </button>
+          </div>
+
+          <div style="clear: both"></div>
+        </div>
+      </section>
+
+    </div>
+    <div class="empty-list jumbotron" ng-show="list.length === 0">
+      <h2>There is nothing in<br>{{currentUser.first_name}} {{currentUser.last_name}}'s list</h2>
+    </div>
+  </div>
+
+</div>

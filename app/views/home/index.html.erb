@@ -1,5 +1,7 @@
 <div ng-controller="HomeController as home" ng-init="home.loadList(<%= current_user.to_json %>)">
-  <%= render 'yourList' %>
-
-  <%= render 'details' %>
+  
+	<div class="container">
+	  <%= render 'yourList' %>
+	  <%= render 'details' %>
+	</div>
 </div>

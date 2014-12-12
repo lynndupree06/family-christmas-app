@@ -100,9 +100,13 @@
       };
 
       this.viewList = function (user) {
-        $scope.user = user;
+        $scope.currentUser = user;
         $scope.list = ItemsById.query(user);
         this.view = 'userList';
+      };
+
+      this.nameSelected = function (user) {
+        var u = $scope.selectedUser;
       };
 
       this.isView = function (view) {
@@ -125,11 +129,12 @@
         return status === 'Pending';
       };
 
-      $scope.markPurchased = function (item) {
+      $scope.markPurchased = function (item, userToPurchaseId) {
         item.status = 'Unavailable';
+        item.user_to_purchase = userToPurchaseId;
 
         Item.update(item, function () {
-          $scope.list = ItemsById.query($scope.user);
+          $scope.list = ItemsById.query($scope.currentUser);
         });
       };
 
@@ -138,7 +143,7 @@
         item.user_to_purchase = userToPurchaseId;
 
         Item.update(item, function () {
-          $scope.list = ItemsById.query($scope.user);
+          $scope.list = ItemsById.query($scope.currentUser);
         });
       };
     }]);

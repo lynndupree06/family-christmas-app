@@ -56,27 +56,46 @@
         $scope.list = ItemsById.query(user);
       };
 
-      this.addItem = function (item, userId) {
+      this.updateItem = function (item, userId) {
         var self = this;
         item.user_id = userId;
         item.status = 'Available';
 
         if ($scope.addItemForm.$valid) {
-          Items.create({item: item}, function () {
-            $scope.item = {
-              title: '',
-              description: '',
-              link: '',
-              importance: ''
-            };
-
-            $('#details').modal('hide');
-            self.loadList($scope.currentUser);
-            self.view = 'list';
-          }, function (error) {
-            console.log(error)
-          });
+          if(item.id === null) {
+            Items.create({item: item}, function () {
+              $('#details').modal('hide');
+              self.loadList($scope.currentUser);
+            }, function (error) {
+              console.log(error);
+            });
+          } else {
+            Item.update(item, function() {
+              $('#details').modal('hide');
+              self.loadList($scope.currentUser);
+            }, function (error) {
+              console.log(error);
+            });
+          }
         }
+      };
+
+      this.editItem = function(itemToEdit) {
+        $scope.item = itemToEdit;
+        $scope.item.mode = 'edit';
+
+        $('#details').modal('show');
+      };
+
+      $scope.setMode = function(mode) {
+        $scope.item = {
+          title: '',
+          description: '',
+          link: '',
+          importance: '',
+          mode: 'new'
+        };
+        $('#details').modal('show');
       };
 
       this.isView = function (view) {

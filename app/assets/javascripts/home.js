@@ -48,7 +48,7 @@
 
   app.controller('HomeController', ['$scope', '$resource', 'Items', 'Item', 'ItemsById',
     function ($scope, $resource, Items, Item, ItemsById) {
-
+      $scope.yourList = true;
       this.view = 'list';
 
       this.loadList = function (user) {
@@ -81,7 +81,7 @@
         }
       };
 
-      this.editItem = function(itemToEdit) {
+      $scope.editItem = function(itemToEdit) {
         $scope.item = itemToEdit;
         $scope.item.mode = 'edit';
 
@@ -163,7 +163,7 @@
         });
       };
 
-      this.markPending = function (item, userToPurchaseId) {
+      $scope.markPending = function (item, userToPurchaseId) {
         item.status = 'Pending';
         item.user_to_purchase = userToPurchaseId;
 
@@ -174,6 +174,8 @@
     }]);
 
   app.controller('PurchasesController', ['$scope', 'Purchases', 'Item', function ($scope, Purchases, Item) {
+    $scope.purchases = true;
+
     this.loadPurchases = function (userId) {
       $scope.currentUserId = userId;
       $scope.list = Purchases.query({id: userId});
@@ -200,10 +202,10 @@
     };
   }]);
 
-//  app.directive("wishList", function () {
-//      return {
-//        restrict: 'E',
-//        templateUrl: "/wish_list"};
-//    }
-//  );
+  app.directive("wishList", function () {
+      return {
+        restrict: 'E',
+        templateUrl: "/wish_list"};
+    }
+  );
 })();

@@ -1,0 +1,75 @@
+<div ng-repeat="item in list">
+
+    <span ng-show="item.first_name" class="label label-default">{{item.first_name}} {{item.last_name}}</span>
+
+    <section class="item panel panel-default"
+             ng-class="{'panel-danger unavailable':isUnavailable(item.status) && !isPending(item.status),
+                  'panel-warning':isPending(item.status),
+                  'panel-success':isAvailable(item.status)}">
+        <div class="panel-heading title">
+            {{item.title}}
+            <div ng-show="yourList" class="btn-group right">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                        aria-expanded="false">
+                    <i class="glyphicon glyphicon-cog"></i>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li ng-click="editItem(item)">
+                        <a><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+                    </li>
+                    <li ng-click="deleteItem(item.id)">
+                        <a><i class="glyphicon glyphicon-trash"></i> Delete</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="status">
+                <i class="glyphicon"
+                   ng-class="{'glyphicon-remove':isUnavailable(item.status) && !isPending(item.status),
+                  'glyphicon-exclamation-sign':isPending(item.status),
+                  'glyphicon-ok':isAvailable(item.status)}"></i>
+            </div>
+
+        </div>
+
+        <div class="panel-body">
+            <div class="created-at">Created on {{item.created_at | date:"MM/dd/yyyy 'at' h:mma"}}</div>
+            <div class="importance">
+              <span ng-repeat="i in [1, 2, 3, 4, 5]">
+                <i ng-show="item.importance >= i" class="glyphicon glyphicon-star"></i>
+                <i ng-show="item.importance < i" class="glyphicon glyphicon-star-empty"></i>
+              </span>
+            </div>
+            <div class="description">{{item.description}}</div>
+
+            <div ng-show="item.link">
+                <h4>Related Link</h4>
+                <a href="{{item.link}}" target="_blank">{{item.link}}</a>
+            </div>
+
+            <span ng-show="purchases" ng-switch="isPending(item.status)">
+                <button ng-switch-when="true" class="btn btn-warning" ng-click="markPurchased(item)">Purchase</button>
+                <span ng-switch-when="false" class="text-warning purchased">You Have Purchased This Item</span>
+            </span>
+
+            <button class="btn btn-primary" ng-click="markPending(item, current_user_id)"
+                    ng-show="isAvailable(item.status)">Mark to Purchase
+            </button>
+
+            <div ng-show="isPending(item.status) && !purchases"
+                 ng-switch="item.user_to_purchase === current_user_id" class="text-warning pending">
+                <span ng-switch-when="false">Has Been Marked For Purchase</span>
+                <button ng-switch-when="true" class="btn btn-warning"
+                        ng-click="markPurchased(item, current_user_id)">
+                    Purchase
+                </button>
+            </div>
+
+            <div ng-show="isUnavailable(item.status) && !isPending(item.status) && !purchases && item.user_to_purchase === current_user_id">
+                <span class="text-warning purchased">You Have Purchased This Item</span>
+            </div>
+
+            <div style="clear: both"></div>
+        </div>
+    </section>
+
+</div>

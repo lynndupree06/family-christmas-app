@@ -74,14 +74,13 @@
   }
 }
 
-.empty-list {
-  margin: 20px auto;
-  text-align: center;
-}
 
 .jumbotron {
   &.content {
     margin: 30px auto;
+    .empty-list {
+      text-align: center;
+    }
   }
 }
 

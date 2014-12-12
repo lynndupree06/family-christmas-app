@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   get 'home/users/items/:id' => 'users#items'
   get 'home/users/others/:id' => 'users#others'
   get 'home/users/purchases/:id' => 'users#purchases'
-  get '/wish_list' => 'home#wish_list'
+
+  get '/wish_list', :to => redirect('/wish_list.html')
 
   devise_for :users, :controllers => { registrations: 'registrations' }
   root to: 'home#index'

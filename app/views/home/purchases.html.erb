@@ -1,53 +1,8 @@
 <div ng-controller="PurchasesController as ctrl" ng-init="ctrl.loadPurchases(<%= current_user.id %>)">
   <h1>Purchases</h1>
 
-  <div class="jumbotron content" ng-hide="list.length === 0">
-    <div ng-repeat="item in list">
-
-      <span class="label label-default">{{item.first_name}} {{item.last_name}}</span>
-
-      <section class="item panel"
-               ng-class="{'panel-danger unavailable':isUnavailable(item.status) && !isPending(item.status),
-                    'panel-warning':isPending(item.status),
-                    'panel-success':isAvailable(item.status)}">
-        <div class="title panel-heading">
-          {{item.title}}
-          <div class="status">
-            <i class="glyphicon"
-               ng-class="{'glyphicon-remove':isUnavailable(item.status) && !isPending(item.status),
-                    'glyphicon-exclamation-sign':isPending(item.status),
-                    'glyphicon-ok':isAvailable(item.status)}"></i>
-          </div>
-        </div>
-
-        <div class="panel-body">
-          <div class="created-at">Created on {{item.created_at | date:"MM/dd/yyyy 'at' h:mma"}}</div>
-          <div class="importance">
-              <span ng-repeat="i in [1, 2, 3, 4, 5]">
-                <i ng-show="item.importance >= i" class="glyphicon glyphicon-star"></i>
-                <i ng-show="item.importance < i" class="glyphicon glyphicon-star-empty"></i>
-              </span>
-          </div>
-          <div class="description">{{item.description}}</div>
-
-          <div ng-show="item.link">
-            <h4>Related Link</h4>
-            <a href="{{item.link}}" target="_blank">{{item.link}}</a>
-          </div>
-
-          <span ng-switch="isPending(item.status)">
-            <button ng-switch-when="true" class="btn btn-warning" ng-click="markPurchased(item)">Purchase</button>
-            <span ng-switch-when="false" class="text-warning purchased">You Have Purchased This Item</span>
-          </span>
-
-          <div style="clear: both"></div>
-        </div>
-      </section>
-
-    </div>
-  </div>
-
-  <div class="empty-list jumbotron" ng-show="list.length === 0">
-    <h2>You have not made any purchases</h2>
+  <div class="jumbotron content">
+    <wish-list ng-hide="list.length === 0"></wish-list>
+    <h2 class="empty-list" ng-show="list.length === 0">You have not made any purchases</h2>
   </div>
 </div>

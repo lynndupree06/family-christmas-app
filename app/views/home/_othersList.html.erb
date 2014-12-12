@@ -9,16 +9,16 @@
     <div ng-repeat="item in list">
 
       <section class="item panel"
-               ng-class="{'panel-danger unavailable':otherList.isUnavailable(item.status) && !otherList.isPending(item.status),
-                  'panel-warning':otherList.isPending(item.status),
-                  'panel-success':otherList.isAvailable(item.status)}">
+               ng-class="{'panel-danger unavailable':isUnavailable(item.status) && !isPending(item.status),
+                  'panel-warning':isPending(item.status),
+                  'panel-success':isAvailable(item.status)}">
         <div class="title panel-heading">
           {{item.title}}
           <div class="status">
             <i class="glyphicon"
-               ng-class="{'glyphicon-remove':otherList.isUnavailable(item.status) && !otherList.isPending(item.status),
-                  'glyphicon-exclamation-sign':otherList.isPending(item.status),
-                  'glyphicon-ok':otherList.isAvailable(item.status)}"></i>
+               ng-class="{'glyphicon-remove':isUnavailable(item.status) && !isPending(item.status),
+                  'glyphicon-exclamation-sign':isPending(item.status),
+                  'glyphicon-ok':isAvailable(item.status)}"></i>
           </div>
         </div>
 
@@ -38,12 +38,12 @@
           </div>
 
           <button class="btn btn-primary" ng-click="otherList.markPending(item, <%= current_user.id %>)"
-                  ng-show="otherList.isAvailable(item.status)">Mark to Purchase</button>
+                  ng-show="isAvailable(item.status)">Mark to Purchase</button>
 
-          <div ng-hide="otherList.isAvailable(item.status)"
+          <div ng-show="isPending(item.status)"
                ng-switch="item.user_to_purchase === <%= current_user.id %>" class="text-warning pending">
             <span ng-switch-when="false">Has Been Marked For Purchase</span>
-            <button ng-switch-when="true" class="btn btn-warning" ng-click="otherList.markPurchased(item, <%= current_user.id %>)">
+            <button ng-switch-when="true" class="btn btn-warning" ng-click="markPurchased(item, <%= current_user.id %>)">
               Purchase
             </button>
           </div>

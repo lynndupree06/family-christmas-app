@@ -58,11 +58,12 @@
 
       this.updateItem = function (item, userId) {
         var self = this;
-        item.user_id = userId;
-        item.status = 'Available';
 
         if ($scope.addItemForm.$valid) {
-          if(item.id === null) {
+          if(item.id === undefined) {
+            item.user_id = userId;
+            item.status = 'Available';
+
             Items.create({item: item}, function () {
               $('#details').modal('hide');
               self.loadList($scope.currentUser);
@@ -124,6 +125,7 @@
 
       this.viewList = function (user) {
         $scope.currentUser = user;
+        $scope.selectedUser = user;
         $scope.list = ItemsById.query(user);
         this.view = 'userList';
       };

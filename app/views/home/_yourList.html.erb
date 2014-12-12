@@ -1,6 +1,6 @@
 <div ng-show="home.isView('list')">
   <h1>My Wish List</h1>
-  <button class="btn btn-primary" ng-click="home.setView('itemDetails')">
+  <button class="btn btn-primary" data-toggle="modal" data-target="#details">
     <i class="glyphicon glyphicon-plus-sign"></i> Add Item to List
   </button>
 
@@ -37,4 +37,8 @@
   <div class="empty-list jumbotron" ng-show="list.length === 0">
     <h1>Your list is empty</h1>
   </div>
+
+  <button class="btn btn-primary" data-toggle="modal" data-target="#details">
+    <i class="glyphicon glyphicon-plus-sign"></i> Add Item to List
+  </button>
 </div>

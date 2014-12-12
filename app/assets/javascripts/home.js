@@ -63,7 +63,15 @@
 
         if ($scope.addItemForm.$valid) {
           Items.create({item: item}, function () {
-            self.loadList($scope.currentUser);;
+            $scope.item = {
+              title: '',
+              description: '',
+              link: '',
+              importance: ''
+            };
+
+            $('#details').modal('hide');
+            self.loadList($scope.currentUser);
             self.view = 'list';
           }, function (error) {
             console.log(error)
@@ -73,10 +81,6 @@
 
       this.isView = function (view) {
         return this.view === view;
-      };
-
-      this.setView = function (newView) {
-        this.view = newView;
       };
 
       $scope.deleteItem = function (itemId) {

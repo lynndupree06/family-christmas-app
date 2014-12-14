@@ -34,7 +34,7 @@
   </div>
 </nav>
 
-<div class="container-fluid">
+<div class="container">
   <div class="row">
 
     <div class="col-sm-offset-2 col-sm-8">
@@ -42,6 +42,10 @@
       <p class="notice"><%= notice %></p>
 
       <p class="alert"><%= alert %></p>
+
+      <% start_date = Date.today %>
+      <% end_date = Date.parse '2014-12-25' %>
+      <h3 class="text-danger"><%= (end_date - start_date).to_i %> Days Until Christmas!</h3>
 
       <p class="navbar-text pull-right">
         <% if user_signed_in? %>

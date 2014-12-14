@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   end
 
   def items
-    @items = User.find(params[:id]).items
+    @items = User.find(params[:id]).items.order(importance: :desc)
     respond_with(@items) do |format|
       format.to_json { @items.to_json }
       format.html
@@ -28,7 +28,10 @@ class UsersController < ApplicationController
   end
 
   def purchases
-    @items = Item.joins(:user).select("#{Item.table_name}.*, #{User.table_name}.first_name, #{User.table_name}.last_name").where(:user_to_purchase => params[:id])
+    @items = Item.joins(:user)
+        .select("#{Item.table_name}.*, #{User.table_name}.first_name, #{User.table_name}.last_name")
+        .where(:user_to_purchase => params[:id])
+        .order(importance: :desc)
     respond_with(@items) do |format|
       format.to_json { @items.to_json(:include => :user) }
       format.html

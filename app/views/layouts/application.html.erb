@@ -44,8 +44,9 @@
       <p class="alert"><%= alert %></p>
 
       <% start_date = Date.today %>
-      <% end_date = Date.parse '2014-12-25' %>
-      <h3 class="text-danger"><%= (end_date - start_date).to_i %> Days Until Christmas!</h3>
+      <% end_date = Date.parse "#{start_date.year}-12-25" %>
+      <% days = (end_date - start_date).to_i %>
+      <h3 class="text-danger"><%= days <= 0 ? "Merry Christmas!" : "#{days} Days Until Christmas!" %></h3>
 
       <p class="navbar-text pull-right">
         <% if user_signed_in? %>

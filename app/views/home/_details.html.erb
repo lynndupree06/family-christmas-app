@@ -11,11 +11,11 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="title">Short Description <span class="required">*</span></label>
-            <input ng-model="item.title" type="text" class="form-control" id="title" placeholder="Enter description of item" required="required">
+            <input ng-model="item.title" type="text" class="form-control" maxLength="50" id="title" placeholder="Enter a short description of item" required="required">
           </div>
           <div class="form-group">
             <label for="description">Long Description</label>
-            <textarea ng-model="item.description" class="form-control" id="description" rows="3"></textarea>
+            <textarea ng-model="item.description" class="form-control" id="description" rows="3" placeholder="Add more details here"></textarea>
           </div>
           <div class="form-group">
             <label for="link">Optional URL</label>

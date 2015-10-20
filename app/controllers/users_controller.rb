@@ -12,7 +12,15 @@ class UsersController < ApplicationController
   end
 
   def items
-    @items = User.find(params[:id]).items.where(:archive => false).order(importance: :desc)
+    @items = User.find(params[:id]).items.where(:archived => false).order(importance: :desc)
+    respond_with(@items) do |format|
+      format.to_json { @items.to_json }
+      format.html
+    end
+  end
+
+  def archive
+    @items = User.find(params[:id]).items.where(:archived => true).order(importance: :desc)
     respond_with(@items) do |format|
       format.to_json { @items.to_json }
       format.html
@@ -31,7 +39,7 @@ class UsersController < ApplicationController
     @items = Item.joins(:user)
         .select("#{Item.table_name}.*, #{User.table_name}.first_name, #{User.table_name}.last_name")
         .where(:user_to_purchase => params[:id])
-        .where(:archive => false)
+        .where(:archived => false)
         .order(importance: :desc)
     respond_with(@items) do |format|
       format.to_json { @items.to_json(:include => :user) }

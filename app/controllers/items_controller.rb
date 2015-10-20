@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @items = Item.all.where(:archive => false).order(importance: :desc)
+    @items = Item.all.where(:archived => false).order(importance: :desc)
     respond_with(@items) do |format|
       format.to_json { @items.to_json }
       format.html

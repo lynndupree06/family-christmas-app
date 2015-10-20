@@ -19,6 +19,12 @@
     })
   }]);
 
+  app.factory('ArchivedItems', ['$resource', function ($resource) {
+    return $resource('/home/users/archive/:id.json', {}, {
+      query: { method: 'GET', isArray: true }
+    })
+  }]);
+
   app.factory('Item', ['$resource', function ($resource) {
     return $resource('/items/:id.json', {}, {
       show: { method: 'GET' },
@@ -46,14 +52,24 @@
     })
   }]);
 
-  app.controller('HomeController', ['$scope', '$resource', 'Items', 'Item', 'ItemsById',
-    function ($scope, $resource, Items, Item, ItemsById) {
+  app.controller('HomeController', ['$scope', '$resource', 'Items', 'Item', 'ItemsById', 'ArchivedItems',
+    function ($scope, $resource, Items, Item, ItemsById, ArchivedItems) {
       $scope.yourList = true;
+      $scope.showArchive = false;
       this.view = 'list';
+
+      $scope.toggleArchive = function() {
+        if($scope.showArchive) {
+          $scope.showArchive = false;
+        } else {
+          $scope.showArchive = true;
+        }
+      };
 
       this.loadList = function (user) {
         $scope.currentUser = user;
         $scope.list = ItemsById.query(user);
+        $scope.archive = ArchivedItems.query(user);
       };
 
       this.updateItem = function (item, userId) {

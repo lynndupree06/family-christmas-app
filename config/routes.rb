@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/others' => 'home#others'
   get '/purchases' => 'home#purchases'
   get 'home/users/items/:id' => 'users#items'
+  get 'home/users/archive/:id' => 'users#archive'
   get 'home/users/others/:id' => 'users#others'
   get 'home/users/purchases/:id' => 'users#purchases'
 

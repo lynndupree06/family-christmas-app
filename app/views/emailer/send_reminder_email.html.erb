@@ -13,9 +13,21 @@
   <p>
   <%= @user.first_name %>, It's that time of the year again and it's time to start getting ready for the holidays. 
   With Thanksgiving just around the corner, it will soon be time for Christmas. We want to make sure
-  we beat all the crowds and don't get caught up in last minute shopping, so let's start preparing early!.
+  we beat all the crowds and don't get caught up in last minute shopping, so let's start preparing early!
   </p>
 
+  <% if @items.size > 0 %>
+  <p>
+    These are the things that were remaining on your list from last year. Maybe you can start with these?
+    <br>
+
+    <ul>
+      <% @items.each do |item| %>
+        <li><%= item.title %></li>
+      <% end %>
+    </ul>    
+  </p>
+  <% end %>
 
   <p>
   Please start putting together your wish lists now so that we can know what to get you. We want you to try to

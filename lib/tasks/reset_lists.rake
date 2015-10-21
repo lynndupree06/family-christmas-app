@@ -10,3 +10,10 @@ task reset_list: :environment do
 				
 	end
 end
+
+desc "Email reminder to update list"
+task email_reminder: :environment do
+	User.all.each do |user|
+		Emailer.send_reminder_email(user).deliver
+	end
+end

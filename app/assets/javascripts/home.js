@@ -72,6 +72,12 @@
         $scope.archive = ArchivedItems.query(user);
       };
 
+      $scope.loadList = function (user) {
+        $scope.currentUser = user;
+        $scope.list = ItemsById.query(user);
+        $scope.archive = ArchivedItems.query(user);
+      };
+
       this.updateItem = function (item, userId) {
         var self = this;
 
@@ -82,7 +88,7 @@
 
             Items.create({item: item}, function () {
               $('#details').modal('hide');
-              self.loadList($scope.currentUser);
+              this.loadList($scope.currentUser);
             }, function (error) {
               console.log(error);
             });
@@ -103,6 +109,17 @@
 
         $('#details').modal('show');
       };
+
+      $scope.unArchive = function(item) {
+        var self = this;
+        item.archived = false;
+
+        Item.update(item, function() {
+          $scope.loadList($scope.currentUser);
+        }, function (error) {
+          console.log(error);
+        });
+      }
 
       $scope.setMode = function(mode) {
         $scope.item = {

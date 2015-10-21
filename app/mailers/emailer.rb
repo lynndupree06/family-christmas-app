@@ -3,7 +3,7 @@ class Emailer < ActionMailer::Base
 
   def send_reminder_email(user)
     @user = user
-    @items = user.items.where(:status => 'Available')
+    @items = user.items.order(:importance).where(:status => 'Available', :archived => true)
     mail(:to => user.email,
          :subject => "It's Holiday Season!")
   end

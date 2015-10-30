@@ -32,7 +32,7 @@
     <ul>
       <% @otherMembers.each do |m| %>
         <% if m[:items] < 6 %>
-          <li><strong><%= m[:name] %></strong> only has <%= pluralize(m[:items], 'item') %></li>
+          <li><strong><%= m[:name] %></strong> <%= 'only ' if m[:items] > 0 %>has <%= pluralize(m[:items], 'item') %></li>
         <% end %>
       <% end %>
     </ul>

@@ -1,22 +1,33 @@
-Season's Greeting!
+<%= @user.first_name %>, are you ready for Christmas?
+
+  <% if @items.size == 0 %>
+    You don't have anything on your list! You need to catch up and make sure you have something by <%= Date.parse(ENV['GIFT_DEADLINE']).to_date.strftime("%A, %B %d") %>. You don't want to wait until the last minute.
+  <% elsif @items.size > 0 && @items.size < 6 %>
+    Do you think you have enough items to cover the amount of people that may be getting you a gift? Maybe spend some more time adding a few more gifts. We are shooting to have gifts in by <%= Date.parse(ENV['GIFT_DEADLINE']).to_date.strftime("%A, %B %d") %>, so don't wait until the last minute!
+  <% elsif @items.size >= 6 %>
+    It looks like you are all set!
+  <% end %>
+
+    Try to encourage some of these other family members to update their lists as well:
+
+      <% @otherMembers.each do |m| %>
+        <% if m[:items] < 6 %>
+          - <%= m[:name] %> only has <%= pluralize(m[:items], 'item') %>
+        <% end %>
+      <% end %>
+
+  <% if @items.size > 0 %>
+    These are the things that are currently on your list:
+
+      <% @items.each do |item| %>
+        - <%= item.title %>
+      <% end %>
+  <% end %>
+
+  Make Changes Here: https://family-christmas-app.herokuapp.com
+
+  If you have any questions, let me know.
+
+  Happy Shopping!
   
-<%= @user.first_name %>, It's that time of the year again and it's time to start getting ready for the holidays. With Thanksgiving just around the corner, it will soon be time for Christmas. We want to make sure we beat all the crowds and don't get caught up in last minute shopping, so let's start preparing early!
-
-<% if @items.size > 0 %>
-These are the things that were remaining on your list from last year. Maybe you can start with these?
-
-<% @items.each do |item| %>
-	- <%= item.title %></li>
-<% end %>
-
-<% end %>
-
-Please start putting together your wish lists now so that we can know what to get you. We want you to try to finish your list by *November 20, 2015*. We will be using the same application I created last year. If you don't remember your login credentials, don't worry, you can get an email sent to you to reset your password.
-
-Get started here: https://family-christmas-app.herokuapp.com
-
-If you have any questions, let me know.
-
-Happy Shopping!
-
-Jessica B. Kazembe
+  Jessica B. Kazembe

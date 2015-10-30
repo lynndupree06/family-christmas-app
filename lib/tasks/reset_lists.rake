@@ -11,7 +11,14 @@ task reset_list: :environment do
 	end
 end
 
-desc "Email reminder to update list"
+desc "Email users to update list for Christmas this year"
+task email_update: :environment do
+	User.all.each do |user|
+		Emailer.send_starting_email(user).deliver
+	end
+end
+
+desc "Email reminder to update list before date"
 task email_reminder: :environment do
 	User.all.each do |user|
 		Emailer.send_reminder_email(user).deliver

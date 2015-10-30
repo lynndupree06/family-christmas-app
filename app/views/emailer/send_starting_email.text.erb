@@ -1,0 +1,22 @@
+Season's Greeting!
+  
+<%= @user.first_name %>, It's that time of the year again and it's time to start getting ready for the holidays. With Thanksgiving just around the corner, it will soon be time for Christmas. We want to make sure we beat all the crowds and don't get caught up in last minute shopping, so let's start preparing early!
+
+<% if @items.size > 0 %>
+These are the things that were remaining on your list from last year. Maybe you can start with these?
+
+<% @items.each do |item| %>
+	- <%= item.title %></li>
+<% end %>
+
+<% end %>
+
+Please start putting together your wish lists now so that we can know what to get you. We want you to try to finish your list by *<%= Date.parse(ENV['GIFT_DEADLINE']).to_date.strftime("%A, %B %d, %Y") %>*. We will be using the same application I created last year. If you don't remember your login credentials, don't worry, you can get an email sent to you to reset your password.
+
+Get started here: https://family-christmas-app.herokuapp.com
+
+If you have any questions, let me know.
+
+Happy Shopping!
+
+Jessica B. Kazembe

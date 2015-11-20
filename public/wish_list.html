@@ -1,3 +1,10 @@
+<script>
+    $.get("http://www.sallybeauty.com/hard-hat-dryer/SBS-255271,default,pd.html#start=3", function(data){
+      var $ogImage = $(data).filter("meta[property='og:image']").attr('content'); 
+      console.log($ogImage);
+    });
+</script>
+
 <div ng-repeat="item in list">
 
     <span ng-show="item.first_name" class="label label-default">{{item.first_name}} {{item.last_name}}</span>

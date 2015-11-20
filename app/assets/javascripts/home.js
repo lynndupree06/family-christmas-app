@@ -52,8 +52,14 @@
     })
   }]);
 
-  app.controller('HomeController', ['$scope', '$resource', 'Items', 'Item', 'ItemsById', 'ArchivedItems',
-    function ($scope, $resource, Items, Item, ItemsById, ArchivedItems) {
+  app.factory('Images', ['$resource', function ($resource) {
+    return $resource('/image_url.json', {}, {
+      query: { method: 'POST', params: {url: '@url'} }
+    })
+  }]);
+
+  app.controller('HomeController', ['$scope', '$resource', 'Items', 'Item', 'ItemsById', 'ArchivedItems', 'Images',
+    function ($scope, $resource, Items, Item, ItemsById, ArchivedItems, Images) {
       $scope.yourList = true;
       $scope.showArchive = false;
       this.view = 'list';
@@ -66,15 +72,15 @@
         }
       };
 
-      this.loadList = function (user) {
-        $scope.currentUser = user;
-        $scope.list = ItemsById.query(user);
-        $scope.archive = ArchivedItems.query(user);
-      };
-
       $scope.loadList = function (user) {
         $scope.currentUser = user;
-        $scope.list = ItemsById.query(user);
+        $scope.list = ItemsById.query(user, function (items) {
+          // for(var i = 0; i < items.length; i++) {
+          //   Images.query({url: items[i].link}, function (image_url) {
+          //     items[i]['image_url'] = image_url;
+          //   });
+          // }
+        });
         $scope.archive = ArchivedItems.query(user);
       };
 
@@ -88,14 +94,14 @@
 
             Items.create({item: item}, function () {
               $('#details').modal('hide');
-              this.loadList($scope.currentUser);
+              $scope.loadList($scope.currentUser);
             }, function (error) {
               console.log(error);
             });
           } else {
             Item.update(item, function() {
               $('#details').modal('hide');
-              self.loadList($scope.currentUser);
+              $scope.loadList($scope.currentUser);
             }, function (error) {
               console.log(error);
             });
@@ -141,7 +147,7 @@
 
         if (confirm("Are you sure you want to delete this item?")) {
           Item.delete({ id: itemId }, function () {
-            self.loadList($scope.currentUser);
+            $scope.loadList($scope.currentUser);
           });
         }
       };

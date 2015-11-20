@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   get '/wish_list', :to => redirect('/wish_list.html')
 
+  post 'image_url' => 'home#image_url'
+
   devise_for :users, :controllers => { registrations: 'registrations' }
   root to: 'home#index'
 end

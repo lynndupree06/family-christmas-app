@@ -16,11 +16,15 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 gem 'angularjs-rails'
 gem 'angular-ui-bootstrap-rails'
+gem 'metainspector'
 
 group :development, :test do
   gem 'sqlite3'
   gem 'spring'
   gem 'mailcatcher'
+  gem 'pry'
+  gem 'pry-remote'
+  gem 'pry-stack_explorer'
 end
 
 group :production do

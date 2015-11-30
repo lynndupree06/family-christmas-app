@@ -46,14 +46,15 @@
       <% start_date = Date.today %>
       <% end_date = Date.parse "#{start_date.year}-12-25" %>
       <% days = (end_date - start_date).to_i %>
-      <h3 class="text-danger"><%= days <= 0 ? "Merry Christmas!" : "#{days} Days Until Christmas!" %></h3>
+      <h3 class="text-danger pull-left"><%= days <= 0 ? "Merry Christmas!" : "#{days} Days Until Christmas!" %></h3>
 
-      <p class="navbar-text pull-right">
+      <p class="hidden-sm hidden-xs pull-right">
         <% if user_signed_in? %>
             Logged in as <strong><%= current_user.email %></strong>.
             <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
         <% end %>
       </p>
+      <div class="clear"></div>
 
       <%= yield %>
     </div>

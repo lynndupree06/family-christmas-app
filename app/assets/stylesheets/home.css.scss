@@ -99,6 +99,18 @@
   }
 }
 
-.right {
-  float: right;
+.clear {
+  clear: both;
+}
+
+@media (max-width: 768px) {
+
+  .item {
+    .panel-body {
+      a {
+        width: 100%;
+      }
+    }
+  }
+  
 }

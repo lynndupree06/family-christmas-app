@@ -15,7 +15,7 @@
                   'panel-success':isAvailable(item.status)}">
         <div class="panel-heading title">
             {{item.title}}
-            <div ng-show="yourList" class="btn-group right">
+            <div ng-show="yourList" class="btn-group pull-right">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                         aria-expanded="false">
                     <i class="glyphicon glyphicon-cog"></i>
@@ -49,7 +49,7 @@
             <div class="description">{{item.description}}</div>
 
             <div ng-show="item.link">
-                <h4>Related Link</h4>
+                <h4 class="hidden-sm hidden-xs">Related Link</h4>
                 <a href="{{item.link}}" target="_blank">{{item.link}}</a>
             </div>
 

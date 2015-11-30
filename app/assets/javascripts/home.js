@@ -61,7 +61,7 @@
   app.controller('HomeController', ['$scope', '$resource', 'Items', 'Item', 'ItemsById', 'ArchivedItems', 'Images',
     function ($scope, $resource, Items, Item, ItemsById, ArchivedItems, Images) {
       $scope.yourList = true;
-      $scope.showArchive = false;
+      $scope.showArchive = true;
       this.view = 'list';
 
       $scope.toggleArchive = function() {

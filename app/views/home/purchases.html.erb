@@ -1,8 +1,11 @@
 <div ng-controller="PurchasesController as ctrl" ng-init="ctrl.loadPurchases(<%= current_user.id %>)">
-  <h1>Purchases</h1>
+  <h1 class="noPrint">Purchases</h1>
+  <h1 class="printView">Shopping List</h1>
+
+  <div class="pull-right noPrint"><a href="" onclick="window.print()">Print a Shopping List <i class="glyphicon glyphicon-print"></i></a></div>
 
   <div class="jumbotron content">
-    <wish-list ng-hide="list.length === 0"></wish-list>
-    <h2 class="empty-list" ng-show="list.length === 0">You have not made any purchases</h2>
+    <wish-list ng-hide="userList.length === 0"></wish-list>
+    <h2 class="empty-list" ng-show="userList.length === 0">You have not made any purchases</h2>
   </div>
 </div>

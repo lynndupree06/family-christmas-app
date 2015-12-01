@@ -103,6 +103,30 @@
   clear: both;
 }
 
+.printView {
+  display: none;
+
+  color: black;
+
+  input[type='checkbox'] {
+    -ms-transform: scale(2); /* IE */
+    -moz-transform: scale(2); /* FF */
+    -webkit-transform: scale(2); /* Safari and Chrome */
+    -o-transform: scale(2); /* Opera */
+    margin: 10px;
+  }
+
+  h4 {
+    margin-bottom: 0;
+    display: inline;
+  }
+
+  p {
+    font-style: italic;
+    margin-left: 40px;
+  }
+}
+
 @media (max-width: 768px) {
 
   .item {
@@ -113,4 +137,14 @@
     }
   }
   
+}
+
+@media print {
+  .noPrint {
+    display: none;
+  }
+
+  .printView {
+    display: block;
+  }
 }

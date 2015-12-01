@@ -12,7 +12,13 @@ class UsersController < ApplicationController
   end
 
   def items
-    @items = User.find(params[:id]).items.where(:archived => false).order(importance: :desc)
+    @items = Item.joins(:user)
+        .select("#{Item.table_name}.*, #{User.table_name}.first_name, #{User.table_name}.last_name")
+        .where(:user_id => params[:id])
+        .where(:archived => false)
+        .order(importance: :desc)
+
+    @items = [group_by_user]
     respond_with(@items) do |format|
       format.to_json { @items.to_json }
       format.html
@@ -41,6 +47,8 @@ class UsersController < ApplicationController
         .where(:user_to_purchase => params[:id])
         .where(:archived => false)
         .order(importance: :desc)
+
+    @items = [group_by_user]
     respond_with(@items) do |format|
       format.to_json { @items.to_json(:include => :user) }
       format.html
@@ -85,5 +93,15 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name)
+  end
+
+  def group_by_user
+    group_by_user = {}
+    for item in @items
+      group_by_user["#{item.first_name} #{item.last_name}"] = [] if group_by_user["#{item.first_name} #{item.last_name}"].nil?
+      group_by_user["#{item.first_name} #{item.last_name}"] << item
+    end
+
+    group_by_user
   end
 end

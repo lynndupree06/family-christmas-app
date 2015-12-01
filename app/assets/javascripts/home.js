@@ -74,7 +74,7 @@
 
       $scope.loadList = function (user) {
         $scope.currentUser = user;
-        $scope.list = ItemsById.query(user, function (items) {
+        $scope.userList = ItemsById.query(user, function (items) {
           // for(var i = 0; i < items.length; i++) {
           //   Images.query({url: items[i].link}, function (image_url) {
           //     items[i]['image_url'] = image_url;
@@ -165,7 +165,7 @@
       this.viewList = function (user) {
         $scope.currentUser = user;
         $scope.selectedUser = user;
-        $scope.list = ItemsById.query(user);
+        $scope.userList = ItemsById.query(user);
         this.view = 'userList';
       };
 
@@ -217,7 +217,7 @@
 
     this.loadPurchases = function (userId) {
       $scope.currentUserId = userId;
-      $scope.list = Purchases.query({id: userId});
+      $scope.userList = Purchases.query({id: userId});
     };
 
     $scope.isUnavailable = function (status) {

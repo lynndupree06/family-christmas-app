@@ -1,13 +1,22 @@
 <div class='col-sm-9'>
 
-  <span>Key:</span>
-  <span class="text-success"><i class="glyphicon glyphicon-ok"></i> Available</span>
-  <span class="text-warning"><i class="glyphicon glyphicon-exclamation-sign"></i> Pending</span>
-  <span class="text-danger"><i class="glyphicon glyphicon-remove"></i> Not Available</span>
+  <div class="noPrint">
+    <span>Key:</span>
+    <span class="text-success"><i class="glyphicon glyphicon-ok"></i> Available</span>
+    <span class="text-warning"><i class="glyphicon glyphicon-exclamation-sign"></i> Pending</span>
+    <span class="text-danger"><i class="glyphicon glyphicon-remove"></i> Not Available</span>
+
+    <div ng-init="current_user_id = <%= current_user.id %>" class="pull-right noPrint" ng-show="userList.length > 0">
+      <a href="" onclick="window.print()">
+        Print List {{currentUser.first_name}}'s list 
+        <i class="glyphicon glyphicon-print"></i>
+      </a>
+    </div>
+  </div>
 
   <div class="jumbotron content">
-    <wish-list ng-init="current_user_id = <%= current_user.id %>" ng-hide="list.length === 0"></wish-list>
-    <h2 ng-show="list.length === 0" class="empty-list">
+    <wish-list ng-hide="userList.length === 0"></wish-list>
+    <h2 ng-show="userList.length === 0" class="empty-list">
       There is nothing in<br>
       {{currentUser.first_name}} {{currentUser.last_name}}'s list
     </h2>

@@ -1,16 +1,18 @@
 <div class='col-sm-3'>
-  <ul class="nav nav-pills nav-stacked">
+  <ul class="nav nav-pills nav-stacked noPrint">
     <li ng-class="{active:selectedUser === user}" ng-repeat="user in otherList.users">
-      <a href ng-click="otherList.viewList(user)">{{user.first_name}} {{user.last_name}}</a>
+      <a class="noPrint" href ng-click="otherList.viewList(user)">{{user.first_name}} {{user.last_name}}</a>
     </li>
   </ul>
+
+  <h1 class="printView" ng-repeat="user in otherList.users" ng-show="selectedUser === user">{{user.first_name}} {{user.last_name}}'s List</h1>
 
   <!-- <select class="form-control visible-sm visible-xs"
           ng-options="name as user.first_name for user in otherList.users"
           ng-change="otherList.viewList(selectedUser)"
           ng-model="selectedUser">
-    <!-- <option ng-repeat="user in otherList.users">
+     <option ng-repeat="user in otherList.users">
       {{user.first_name}} {{user.last_name}}
-    </option> -- -->
+    </option> -->
   </select>
 </div>

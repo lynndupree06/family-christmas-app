@@ -46,9 +46,15 @@
     })
   }]);
 
-  app.factory('Purchases', ['$resource', function ($resource) {
-    return $resource('/home/users/purchases/:id.json', {}, {
+  app.factory('UserPurchases', ['$resource', function ($resource) {
+    return $resource('/all_purchases.json', {}, {
       query: { method: 'GET', isArray: true }
+    })
+  }]);
+
+  app.factory('Purchases', ['$resource', function ($resource) {
+    return $resource('/purchases.json', {}, {
+      create: { method: 'POST' }
     })
   }]);
 
@@ -62,7 +68,7 @@
     function ($scope, $resource, Items, Item, ItemsById, ArchivedItems, Images) {
       $scope.yourList = true;
       $scope.showArchive = true;
-      this.view = 'list';
+      $scope.view = 'list';
 
       $scope.toggleArchive = function() {
         if($scope.showArchive) {
@@ -138,8 +144,8 @@
         $('#details').modal('show');
       };
 
-      this.isView = function (view) {
-        return this.view === view;
+      $scope.isView = function (view) {
+        return $scope.view === view;
       };
 
       $scope.deleteItem = function (itemId) {
@@ -153,10 +159,10 @@
       };
     }]);
 
-  app.controller('OtherListController', ['$scope', 'OtherUsers', 'Item', 'Items', 'ItemsById',
-    function ($scope, OtherUsers, Item, Items, ItemsById) {
+  app.controller('OtherListController', ['$scope', 'OtherUsers', 'Item', 'Items', 'ItemsById', 'Purchases',
+    function ($scope, OtherUsers, Item, Items, ItemsById, Purchases) {
 
-      this.view = 'list';
+      $scope.view = 'other-list';
 
       this.loadUsers = function (userId) {
         this.users = OtherUsers.query({id: userId});
@@ -173,8 +179,8 @@
         var u = $scope.selectedUser;
       };
 
-      this.isView = function (view) {
-        return this.view === view;
+      $scope.isView = function (view) {
+        return $scope.view === view;
       };
 
       this.setView = function (newView) {
@@ -195,6 +201,7 @@
 
       $scope.markPurchased = function (item, userToPurchaseId) {
         item.status = 'Unavailable';
+
         item.user_to_purchase = userToPurchaseId;
 
         Item.update(item, function () {
@@ -203,8 +210,12 @@
       };
 
       $scope.markPending = function (item, userToPurchaseId) {
-        item.status = 'Pending';
-        item.user_to_purchase = userToPurchaseId;
+        item.quantity_available = item.quantity_available - 1;
+        if(item.quantity_available == 0) {
+          item.status = 'Unavailable';
+        } else {
+          Purchases.create({item_id: item.id, user_id: userToPurchaseId});
+        }
 
         Item.update(item, function () {
           $scope.list = ItemsById.query($scope.currentUser);
@@ -212,12 +223,14 @@
       };
     }]);
 
-  app.controller('PurchasesController', ['$scope', 'Purchases', 'Item', function ($scope, Purchases, Item) {
+  app.controller('PurchasesController', ['$scope', 'UserPurchases', 'Item', function ($scope, UserPurchases, Item) {
     $scope.purchases = true;
 
     this.loadPurchases = function (userId) {
       $scope.currentUserId = userId;
-      $scope.userList = Purchases.query({id: userId});
+      $scope.userList = UserPurchases.query({user_id: userId}, function(data) {
+        console.log();
+      });
     };
 
     $scope.isUnavailable = function (status) {
@@ -236,7 +249,7 @@
       item.status = 'Unavailable';
 
       Item.update(item, function () {
-        $scope.list = Purchases.query({id: $scope.currentUserId});
+        $scope.list = UserPurchases.query({user_id: $scope.currentUserId});
       });
     };
   }]);

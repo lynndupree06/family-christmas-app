@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
   resources :items
   resources :users, path: 'home/users'
+  resources :purchases
 
   get '/others' => 'home#others'
-  get '/purchases' => 'home#purchases'
+  get '/user_purchases' => 'home#purchases'
   get 'home/users/items/:id' => 'users#items'
   get 'home/users/archive/:id' => 'users#archive'
   get 'home/users/others/:id' => 'users#others'
   get 'home/users/purchases/:id' => 'users#purchases'
+  get '/all_purchases' => 'purchases#all_purchases'
 
   get '/wish_list', :to => redirect('/wish_list.html')
 

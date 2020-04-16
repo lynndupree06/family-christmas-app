@@ -34,6 +34,10 @@
             Prioritize which items are most important to you by ranking them from 1 (least important) to 5 (most important).
           </span>
           </div>
+          <div class="form-group">
+            <label for="quantity">Quantity <span class="required">*</span></label>
+            <input ng-model="item.quantity" class="form-control" id="quantity" type="number" min="1" />
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

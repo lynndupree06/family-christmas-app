@@ -60,11 +60,6 @@
                     <a href="{{item.link}}" target="_blank">{{item.link}}</a>
                 </div>
 
-                <span ng-show="purchases" ng-switch="isPending(item.status)">
-                    <button ng-switch-when="true" class="btn btn-warning" ng-click="markPurchased(item)">Purchase</button>
-                    <span ng-switch-when="false" class="text-warning purchased">You Have Purchased This Item</span>
-                </span>
-
                 <button class="btn btn-primary" ng-click="markPending(item, current_user_id)"
                         ng-show="isAvailable(item.status)">Mark to Purchase
                 </button>
@@ -78,11 +73,14 @@
                     </button>
                 </div>
 
-                <div ng-show="isUnavailable(item.status) && !isPending(item.status) && !purchases && item.user_to_purchase === current_user_id">
-                    <span class="text-warning purchased">You Have Purchased This Item</span>
+                <div class="clear"></div>
+                <div class="quantity">
+                    <strong> 
+                        <span ng-show="view === 'list'">Quantity: <span class="badge">{{item.quantity}}</span></span>
+                        <span ng-show="view === 'other-list'">{{item.quantity_available}} Left!</span>
+                    </strong>
                 </div>
-
-                <div style="clear: both"></div>
+                <div class="clear"></div>
             </div>
         </section>
 
